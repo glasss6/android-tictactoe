@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/square1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="1"/>
+
+        <Button
+            android:id="@+id/square2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="2"/>
+
+        <Button
+            android:id="@+id/square3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="3"/>
+
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:id="@+id/square4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="4"/>
+
+        <Button
+            android:id="@+id/square5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="5"/>
+
+        <Button
+            android:id="@+id/square6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="6"/>
+
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:id="@+id/square7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="7"/>
+
+        <Button
+            android:id="@+id/square8"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="8"/>
+
+        <Button
+            android:id="@+id/square9"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textSize="30sp"
+            android:text="9"/>
+
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:text="Player X's turn"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_span="3"/>
+    </TableRow>
+    <Button
+        android:id="@+id/newgame"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:textSize="20sp"
+        android:layout_span="3"
+        android:textAllCaps="false"
+        android:text="New Game"
+        android:layout_marginTop="10dp"/>
+    <TableRow>
+
+    </TableRow>
+</TableLayout>
