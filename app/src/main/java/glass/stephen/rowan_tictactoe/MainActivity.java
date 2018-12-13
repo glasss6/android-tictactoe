@@ -1,5 +1,6 @@
 package glass.stephen.rowan_tictactoe;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,24 +11,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Random;
 import android.os.Handler;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements OnClickListener {
 
     private Button gameButton[] = new Button[9];
-    private Button newGameButton;
+    //private Button newGameButton;
     private TextView messageText;
 
     private boolean playerTurn = false; // true = X (human)
     private boolean gameOver = false;
 
-    private char mBoard[] = {'1','2','3','4','5','6','7','8','9'};
+    private int mBoard[] = {0,0,0,0,0,0,0,0,0};
     private final int BOARD_SIZE = 9;
 
-    public static final char HUMAN_PLAYER = 'X';
-    public static final char COMPUTER_PLAYER = 'O';
+    public static final int HUMAN_PLAYER = 1;
+    public static final int COMPUTER_PLAYER = 2;
 
     private Random mRand;
+
+    private SharedPreferences mPrefs;
 
     private static final String TAG = "MainActivity";
 
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         mRand = new Random();
 
-        newGameButton = findViewById(R.id.newgame);
+        //newGameButton = findViewById(R.id.newgame);
         messageText = findViewById(R.id.message);
         gameButton[0] = findViewById(R.id.square1);
         gameButton[1] = findViewById(R.id.square2);
@@ -50,14 +57,65 @@ public class MainActivity extends AppCompatActivity
         gameButton[7] = findViewById(R.id.square8);
         gameButton[8] = findViewById(R.id.square9);
 
-        for(int i =0; i < BOARD_SIZE; i++){
+        for(int i=0; i < BOARD_SIZE; i++){
             gameButton[i].setOnClickListener(this);
             gameButton[i].setText("");
         }
         messageText.setText(R.string.newGame);
-        newGameButton.setOnClickListener(this);
+        //newGameButton.setOnClickListener(this);
         gameOver = true;
         playerTurn = true;
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_newGame:
+                Toast.makeText(this, "Starting new game", Toast.LENGTH_SHORT).show();
+                startNewGame();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        // Save everything
+        Editor editor = mPrefs.edit();
+        editor.putBoolean("playerTurn", playerTurn);
+        editor.putBoolean("gameOver", gameOver);
+        editor.putString("messageText", messageText.getText().toString());
+
+        for(int i=0; i < BOARD_SIZE; i++) {
+            editor.putInt("mBoard_" + i, mBoard[i]);
+        }
+        editor.commit();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        gameOver = mPrefs.getBoolean("gameOver", false);
+        playerTurn = mPrefs.getBoolean("playerTurn", true);
+        messageText.setText(mPrefs.getString("messageText", "Player X's turn (Human)"));
+
+        for(int i=0; i < BOARD_SIZE; i++) {
+            mBoard[i] = mPrefs.getInt("mBoard_" + i, 0);
+            if(mBoard[i] == HUMAN_PLAYER) gameButton[i].setText("X");
+            else if(mBoard[i] == COMPUTER_PLAYER) gameButton[i].setText("O");
+            else gameButton[i].setText("");
+        }
     }
 
     /** Start new game by clearing the board and set the starting values */
@@ -74,7 +132,8 @@ public class MainActivity extends AppCompatActivity
         gameOver = false;
         playerTurn = true;
         for(int i = 0; i < BOARD_SIZE; i++) { // reset boards
-            mBoard[i]=Character.forDigit(49+i, 10);
+            //mBoard[i]=Character.forDigit(49+i, 10);
+            mBoard[i] = 0;
         }
         clearGrid();
         setTurnText();
@@ -82,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
     /** Clear the board of all X's and O's. */
     public void clearGrid() {
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < BOARD_SIZE; i++) {
             gameButton[i].setText(""); // set the button text blank
         }
     }
@@ -219,7 +278,7 @@ public class MainActivity extends AppCompatActivity
         // First see if there's a move O can make to win
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) {
-                char curr = mBoard[i];
+                int curr = mBoard[i];
                 mBoard[i] = COMPUTER_PLAYER;
                 if (checkForGameOver() == 3) {
                     gameButton[i].setText("O");
@@ -233,7 +292,7 @@ public class MainActivity extends AppCompatActivity
         // See if there's a move O can make to block X from winning
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) {
-                char curr = mBoard[i];   // Save the current number
+                int curr = mBoard[i];   // Save the current number
                 mBoard[i] = HUMAN_PLAYER;
                 if (checkForGameOver() == 2) {
                     mBoard[i] = COMPUTER_PLAYER;
@@ -261,9 +320,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newgame:
+            /*case R.id.newgame:
                 startNewGame();
-                break;
+                break;*/
             case R.id.square1:
                 gameButtonTap(1);
                 break;

@@ -3,7 +3,7 @@
     <string name="newGame">Press New Game to Start</string>
     <string name="turnX">Player X\'s turn (Human)</string>
     <string name="turnO">Player O\'s turn (AI)</string>
-    <string name="gameTie">Tie!</string>
+    <string name="gameTie">Tie!               </string>
     <string name="gameX">Player X wins!</string>
     <string name="gameO">Player O wins!</string>
     <string name="gameZ">Unsupported win!</string>

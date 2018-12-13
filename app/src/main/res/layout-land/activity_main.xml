@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_vertical|left"
+    android:layout_marginLeft="10dp">
 
     <TableRow>
 
@@ -29,6 +30,17 @@
             android:textSize="30sp"
             android:text="3"/>
 
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:text="Player X's turn"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </TableRow>
     <TableRow>
 
@@ -53,6 +65,18 @@
             android:textSize="30sp"
             android:text="6"/>
 
+        <!--<Button
+            android:id="@+id/newgame"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:text="New Game"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:padding="25dp"/>-->
+
     </TableRow>
     <TableRow>
 
@@ -76,33 +100,6 @@
             android:layout_height="100dp"
             android:textSize="30sp"
             android:text="9"/>
-
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="30dp"
-            android:text="Player X's turn"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_span="3"/>
-    </TableRow>
-
-    <!--<Button
-        android:id="@+id/newgame"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:textSize="20sp"
-        android:layout_span="3"
-        android:textAllCaps="false"
-        android:text="New Game"
-        android:layout_marginTop="10dp"/>-->
-
-    <TableRow>
 
     </TableRow>
 </TableLayout>
